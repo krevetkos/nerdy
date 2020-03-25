@@ -1,0 +1,25 @@
+<div class="task_container" *ngIf="edit; else startEdit">
+    <div class="task_wrapper">
+        <p class="task_value">{{item.value}}</p>
+        <button class="task_edit btn" (click)="editItem()">Edit</button>
+        <button class="task_delete btn" (click)="deleteItem()">Delete</button>
+    </div>
+    <div class="task_user">
+        <p class="task_user_email">Created by: {{item.ownerEmail}}</p>
+        <p class="sharedWith">Shared with: {{sharedWit}}</p>
+    </div>
+</div>
+
+<ng-template #startEdit>
+    <div class="task_container">
+        <div class="task_wrapper">
+            <input type="text" class="edit_task_value" value="{{item.value}}" [(ngModel)]="newValue">
+            <button class="task_edit btn" (click)="cancelEdit()">Cancel</button>
+            <button class="task_delete btn" (click)="saveItem()">Save</button>
+        </div>
+        <div class="task_user">
+            <p class="task_user_email">Created by: {{item.ownerEmail}}</p>
+            <input type="text" class="task_share_with" placeholder="Enter email for the sharing" [(ngModel)]="sharedWitDB">
+        </div>
+    </div>
+</ng-template>

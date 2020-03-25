@@ -1,0 +1,12 @@
+<div class="task_container">
+    <div class="create_task_container">
+        <h2 class="create_task_header">Add new task</h2>
+        <div class="crate_task_wrapper">
+            <input type="text" class="task_text" placeholder="Enter your task" [(ngModel)]="taskText">
+            <button class="task_add" (click)="addTask()">ADD</button>
+        </div>
+    </div>
+    <div class="task_wrapper">
+        <app-task-item *ngFor="let task of tasks | async" [item]="task"></app-task-item>
+    </div>
+</div>

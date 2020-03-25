@@ -1,0 +1,22 @@
+<div class="user-login-wrapper" *ngIf="registered; else unRegistered">
+    <h2 class="login-form-header">Login</h2>
+    <form [formGroup]="userData" (ngSubmit)="onSubmit()" class="user-login">
+        <input type="email" name="email" class="user-data-input" placeholder="Enter Your Email" formControlName="email">
+        <input type="password" name="password" class="user-data-input" placeholder="Enter Your Password" formControlName="password">
+        <button class="user-login-submit" type="submit" (click)="loginUser()">Login</button>
+        <p class="user-register" (click)="notRegistered()">Sign up</p>
+
+    </form>
+</div>
+
+<ng-template #unRegistered>
+    <div class="user-login-wrapper">
+        <h2 class="login-form-header">Sign up</h2>
+        <form [formGroup]="userData" (ngSubmit)="onSubmit()" class="user-login">
+            <input type="email" name="email" class="user-data-input" placeholder="Enter Your Email" formControlName="email">
+            <input type="password" name="password" class="user-data-input" placeholder="Enter Your Password" formControlName="password">
+            <button class="user-login-submit" type="submit" (click)="registerUser()">Sign up</button>
+            <p class="user-register" (click)="notRegistered()">Login</p>
+        </form>
+    </div>
+</ng-template>

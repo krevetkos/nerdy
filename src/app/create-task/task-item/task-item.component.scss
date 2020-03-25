@@ -1,0 +1,40 @@
+.task_container {
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    margin: 5px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    .task_wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 40px;
+        .task_value {
+            font-size: 25px;
+            font-weight: 600;
+            margin: 0;
+            width: 70%;
+        }
+        .btn {
+            width: 12.5%;
+            height: 35px;
+            border-radius: 5px 5px 5px 5px;
+            border: none;
+            background-color: #bd59d4;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+        }
+    }
+    .task_user {
+        width: 100%;
+        display: flex;
+        .task_user_email,
+        .sharedWith {
+            width: 50%;
+        }
+    }
+}
