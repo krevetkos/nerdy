@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class AuthService {
-  BASE_URL = "https://still-wave-51114.herokuapp.com/"
+  BASE_URL = "https://serene-falls-61824.herokuapp.com/"
 
   constructor(private http: HttpClient, private router: Router) {}
 
