@@ -1,7 +1,7 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../shared/auth.service';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -9,15 +9,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RegistrationComponent implements OnInit {
   registered: boolean = false;
-  registerUrl = "https://serene-falls-61824.herokuapp.com/user/register";
-  loginUrl = "https://serene-falls-61824.herokuapp.com/user/login";
   userData = new FormGroup({
   email: new FormControl( '',[Validators.email]),
   password : new FormControl('',[ Validators.minLength(8)])
 })
-constructor( private http : HttpClient,private router: Router) { }
+constructor( private auth: AuthService, private router: Router) { }
 
 ngOnInit() {
+  if(JSON.parse(localStorage.getItem('user'))){
+    this.router.navigate(['task']);
+  }
 }
 onSubmit() {
   console.log(this.userData.value );
@@ -26,24 +27,9 @@ notRegistered(){
   this.registered = !this.registered;
 }
 registerUser(){
-  this.http
-  .post<any>(this.registerUrl, this.userData.value )
-  .subscribe(result => {
-    if(result.accessToken){
-      localStorage.setItem("user", JSON.stringify(result));
-      this.router.navigate(['task']);
-    }
-
-  });
+this.auth.registerUser(this.userData.value)
 }
 loginUser(){
-  this.http
-  .post<any>(this.loginUrl, this.userData.value )
-  .subscribe(result => {
-    if(result.accessToken){
-      localStorage.setItem("user", JSON.stringify(result));
-      this.router.navigate(['task']);
-    }
-  });
+ this.auth.loginUser(this.userData.value)
 }
 }

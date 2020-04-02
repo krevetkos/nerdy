@@ -13,10 +13,6 @@ sharedWit = "";
 editedValue;
 sharedWitDB = "";
 newValue = "";
-data = JSON.parse(localStorage.getItem('user'));
-accessToken = this.data.accessToken;
-refreshToken = this.data.refreshToken;
-deleteUpdateTasksUrl = "https://serene-falls-61824.herokuapp.com/task"
   constructor(private api:ApiService) { }
 
   ngOnInit() {
@@ -39,7 +35,7 @@ saveItem(){
     this.editedValue.value = this.newValue;
   }
   console.log(this.editedValue);
-  this.api.editTask(this.deleteUpdateTasksUrl, this.item._id, this.editedValue,  this.accessToken, this.refreshToken)
+  this.api.editTask(this.item._id, this.editedValue)
   this.sharedWitDB = "";
   this.editedValue.value = "";
   this.edit = !this.edit;
@@ -54,7 +50,7 @@ cancelEdit(){
   this.edit = !this.edit;
 }
 deleteItem(){
-  this.api.deleteTask(this.deleteUpdateTasksUrl, this.item._id,  this.accessToken, this.refreshToken)
+  this.api.deleteTask(this.item._id)
   setTimeout(()=>{window.location.reload()},1500)
 }
 }

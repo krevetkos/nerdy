@@ -6,53 +6,36 @@ import { Router } from '@angular/router';
   providedIn: 'root',
 })
 export class ApiService {
-   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'accessToken': 'my-auth-token'
-    })
-  };
+  BASE_URL = "http://localhost:8080/"
+
   constructor(private http: HttpClient, private router: Router) {}
-
-  addTask(url, task,access,refresh) {
-    const httpOptions = {
+  creatHttpOptions(){
+    let httpOptions
+    return httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'accessToken': access,
-        'refreshToken': refresh
+        'accessToken': JSON.parse(localStorage.getItem('user')).accessToken,
+        'refreshToken': JSON.parse(localStorage.getItem('user')).refreshToken,
       })
     };
-    this.http.post(url, task,httpOptions).subscribe(response=> console.log(response));
   }
-  getTasks(url, userData,access,refresh){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'accessToken': access,
-        'refreshToken': refresh
-      })
-    };
-   return  this.http.post(url, userData, httpOptions)
+  addTask(task) {
+    this.http.post(`${this.BASE_URL}task/create`, task,this.creatHttpOptions()).subscribe(response=> console.log(response));
   }
-  editTask(url:string, id: string, body,access,refresh) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'accessToken': access,
-        'refreshToken': refresh
-      })
-    };
-    this.http.put(`${url}/${id}`, body, httpOptions).subscribe(response=> console.log(response));
+  getTasks( userData){
+   return  this.http.post(`${this.BASE_URL}task/`, userData, this.creatHttpOptions())
+  }
+  editTask( id: string, body) {
+    this.http.put(`${this.BASE_URL}task/${id}`, body, this.creatHttpOptions()).subscribe(response=> console.log(response));
   }
 
-  deleteTask(url:string, id: string, access, refresh) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'accessToken': access,
-        'refreshToken': refresh
-      })
-    };
-    this.http.delete(`${url}/${id}`, httpOptions).subscribe(response=> console.log(response));
+  deleteTask( id: string) {
+    this.http.delete(`${this.BASE_URL}task/${id}`, this.creatHttpOptions()).subscribe(response=> console.log(response));
+  }
+  getToken(){
+    return JSON.parse(localStorage.getItem('user')).accessToken
+  }
+  loggedIn(){
+    return !!JSON.parse(localStorage.getItem('user'))
   }
 }

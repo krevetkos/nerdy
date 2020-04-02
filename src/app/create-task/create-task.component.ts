@@ -11,20 +11,14 @@ import { map } from 'rxjs/operators';
 export class CreateTaskComponent implements OnInit {
 userData:UserDataInterface;
 taskText:string = '';
-accessToken;
 someData;
-refreshToken;
 tasks:Observable<Object>;
-createTaskUrl = "https://serene-falls-61824.herokuapp.com/task/create"
-getTasksUrl = "https://serene-falls-61824.herokuapp.com/task/"
   constructor(private api:ApiService) { }
 
   ngOnInit() {
-    let data = JSON.parse(localStorage.getItem('user'));
-    this.userData = data.user;
-    this.accessToken = data.accessToken;
-    this.refreshToken = data.refreshToken;
+    this.userData = JSON.parse(localStorage.getItem('user'));
     this.tasks = this.getTasks()
+    console.log(this.tasks)
     this.tasks.pipe(
       map(data=>{
         this.someData = data;
@@ -37,11 +31,11 @@ addTask(){
 if(this.taskText.trim().length === 0) {
   return
 }
-this.api.addTask(this.createTaskUrl, {user: this.userData, task: this.taskText}, this.accessToken, this.refreshToken);
+this.api.addTask({user: this.userData, task: this.taskText});
 this.taskText = '';
 setTimeout(()=>{window.location.reload()},1500)
 }
 getTasks(){
- return  this.api.getTasks(this.getTasksUrl,  this.userData, this.accessToken, this.refreshToken)
+ return  this.api.getTasks(this.userData)
 }
 }

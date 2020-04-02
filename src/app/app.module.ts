@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
 import { TaskItemComponent } from './create-task/task-item/task-item.component';
+import { RegisterGuard } from './register.guard';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { TaskItemComponent } from './create-task/task-item/task-item.component';
     FormsModule
   ],
   exports: [TaskItemComponent],
-  providers: [],
+  providers: [RegisterGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
